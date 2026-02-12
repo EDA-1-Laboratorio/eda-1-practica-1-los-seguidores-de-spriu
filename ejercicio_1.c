@@ -34,7 +34,7 @@ int main() {
 }
 
 void crearMensaje() {
-    int ren, col, i, j, k = 0;
+    int ren, col, i = 0, j = 0, k = 0;
 
     printf("\n--- CIFRADO ---\n");
     printf("Ingresar el tamaño de la escítala (Renglones): ");
@@ -54,9 +54,39 @@ void crearMensaje() {
     /* TODO: Escribe aquí los bucles anidados para llenar 'escitala[i][j]' 
        usando los caracteres de 'texto'.
        Tip: Necesitas recorrer renglones y luego columnas. */
-       
-    // ... (Tu código aquí) ...
 
+    size_t size = sizeof(texto)/sizeof(texto[0]);
+
+    printf("\n\n");
+    // Bucle matriz
+
+    for (i = 0; i < ren; i++){
+
+        for (j = 0; j < col; j++){
+
+           escitala[i][j] = texto[k];
+           k++;
+
+        }
+
+    }
+
+    /*Bucle print
+
+    for (i = 0; i < ren; i++){
+
+
+        for (j = 0; j < col; j++){
+
+            printf("%c ", escitala[i][j]);
+
+        }
+
+        printf("\n");
+
+    }*/
+
+    printf("\n\n");
 
     printf("El texto cifrado (leído de la tira) es:\n");
 
@@ -65,14 +95,26 @@ void crearMensaje() {
     
     /* TODO: Escribe aquí los bucles para imprimir el mensaje cifrado.
        Tip: Ahora el bucle externo debe controlar las columnas y el interno los renglones. */
+    k = 0;
+    char texto2[size];
+    for (i = 0; i < col; i++){
 
-    // ... (Tu código aquí) ...
-    
+        for (j = 0; j < ren; j++){
+
+           texto2[k] = escitala[j][i];
+           k++;
+
+        }
+
+    }
+
+    printf("%s", texto2);
     printf("\n");
+
 }
 
 void descifrarMensaje() {
-    int ren, col, i, j, k = 0;
+    int ren, col, i=0, j=0, k = 0;
 
     printf("\n--- DESCIFRADO ---\n");
     printf("Ingresar el tamaño de la escítala (Renglones original): ");
@@ -94,8 +136,33 @@ void descifrarMensaje() {
        Tip: El orden de los bucles 'for' es inverso al llenado del cifrado normal. 
        Debes llenar columna por columna usando el 'texto' cifrado. */
 
-    // ... (Tu código aquí) ...
+    // Bucle matriz.
 
+    for (i = 0; i < col; i++){
+
+        for (j = 0; j < ren; j++){
+
+           escitala[j][i] = texto[k];
+           k++;
+
+        }
+
+    }
+
+    /*Bucle print
+
+    for (i = 0; i < ren; i++){
+
+
+        for (j = 0; j < col; j++){
+
+            printf("%c ", escitala[i][j]);
+
+        }
+
+        printf("\n");
+
+    }*/
 
     printf("El texto descifrado es:\n");
 
@@ -104,7 +171,22 @@ void descifrarMensaje() {
 
     /* TODO: Escribe aquí los bucles para imprimir el mensaje original. */
 
-    // ... (Tu código aquí) ...
+    size_t size = sizeof(texto)/sizeof(texto[0]);
+    k = 0;
+    char texto2[size];
+    for (i = 0; i < ren; i++){
+
+        for (j = 0; j < col; j++){
+
+           texto2[k] = escitala[i][j];
+           k++;
+
+        }
+
+    }
+
+    printf("%s", texto2);
+    printf("\n");
 
     printf("\n");
 }
