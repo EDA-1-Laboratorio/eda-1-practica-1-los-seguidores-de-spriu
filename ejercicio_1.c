@@ -34,7 +34,7 @@ int main() {
 }
 
 void crearMensaje() {
-    int ren, col, i, j, k = 0;
+    int ren, col, i = 0, j = 0, k = 0;
 
     printf("\n--- CIFRADO ---\n");
     printf("Ingresar el tamaño de la escítala (Renglones): ");
@@ -54,9 +54,39 @@ void crearMensaje() {
     /* TODO: Escribe aquí los bucles anidados para llenar 'escitala[i][j]' 
        usando los caracteres de 'texto'.
        Tip: Necesitas recorrer renglones y luego columnas. */
-       
-    // ... (Tu código aquí) ...
 
+    size_t size = sizeof(texto)/sizeof(texto[0]);   // Variable que contiene el tamaño de texto[]
+
+    printf("\n\n");
+    // Bucle matriz
+
+    for (i = 0; i < ren; i++){                      // Se coloca en el renglon i
+
+        for (j = 0; j < col; j++){                  // Avanza hacia la derecha en las columnas
+
+           escitala[i][j] = texto[k];               // Coloca el carácter contenido en texto[k] en la posicion [i][j] de la matriz.
+           k++;
+
+        }
+
+    }
+
+    /*Bucle print //Descomentar esta parte para imprimir la matriz auxiliar.
+
+    for (i = 0; i < ren; i++){
+
+
+        for (j = 0; j < col; j++){
+
+            printf("%c ", escitala[i][j]);
+
+        }
+
+        printf("\n");
+
+    }*/
+
+    printf("\n\n");
 
     printf("El texto cifrado (leído de la tira) es:\n");
 
@@ -65,14 +95,26 @@ void crearMensaje() {
     
     /* TODO: Escribe aquí los bucles para imprimir el mensaje cifrado.
        Tip: Ahora el bucle externo debe controlar las columnas y el interno los renglones. */
+    k = 0;                                          // Reiniciamos k
+    char texto2[size+1];                              // Creamos un nuevo arreglo con el tamaño texto[] para guardar el texto cifrado. 
+    for (i = 0; i < col; i++){                      // Se coloca en la columna j
 
-    // ... (Tu código aquí) ...
-    
+        for (j = 0; j < ren; j++){                  // Baja por los renglones
+
+           texto2[k] = escitala[j][i];              // Cambiamos el valor en la posicion [j][i], i controla las columnas y j los renglones, por eso no usamos [i][j].
+           k++;
+
+        }
+
+    }
+    texto2[size] = '\0';
+    printf("%s", texto2);
     printf("\n");
+
 }
 
 void descifrarMensaje() {
-    int ren, col, i, j, k = 0;
+    int ren, col, i=0, j=0, k = 0;
 
     printf("\n--- DESCIFRADO ---\n");
     printf("Ingresar el tamaño de la escítala (Renglones original): ");
@@ -94,8 +136,33 @@ void descifrarMensaje() {
        Tip: El orden de los bucles 'for' es inverso al llenado del cifrado normal. 
        Debes llenar columna por columna usando el 'texto' cifrado. */
 
-    // ... (Tu código aquí) ...
+    // Bucle matriz.
 
+    for (i = 0; i < col; i++){                      // Nuevamente necesitamos leer la matriz hacia abajo (en lugar de hacia la derecha), asi que i controlara las columnas y j los renglones.
+
+        for (j = 0; j < ren; j++){
+
+           escitala[j][i] = texto[k];               //  Volvemos a acceder a la posicion [j][i] (en lugar de [i][j]), para que los valores de la matriz pasen de manera correcta al arreglo texto[]
+           k++;
+
+        }
+
+    }
+
+    /*Bucle print //Descomentar esta parte para imprimir la matriz auxiliar.
+
+    for (i = 0; i < ren; i++){
+
+
+        for (j = 0; j < col; j++){
+
+            printf("%c ", escitala[i][j]);
+
+        }
+
+        printf("\n");
+
+    }*/
 
     printf("El texto descifrado es:\n");
 
@@ -104,7 +171,22 @@ void descifrarMensaje() {
 
     /* TODO: Escribe aquí los bucles para imprimir el mensaje original. */
 
-    // ... (Tu código aquí) ...
+    size_t size = sizeof(texto)/sizeof(texto[0]);   // Variable que contiene el tamaño de texto[]
+    k = 0;                                          // Reiniciamos k
+    char texto2[size];                              // Creamos un nuevo arreglo con el tamaño de texto[] para guardar el texto descifrado.
+    for (i = 0; i < ren; i++){                      // Se coloca en el renglon i
+
+        for (j = 0; j < col; j++){                  // Lee las columnas (lee hacia la derecha)
+
+           texto2[k] = escitala[i][j];              // Cambiamos el valor de texto2[k] por el almacenado en la posicion [i][j]
+           k++;
+
+        }
+
+    }
+    texto2[size] = '\0';
+    printf("%s", texto2);
+    printf("\n");
 
     printf("\n");
 }
