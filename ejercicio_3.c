@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h> // Para la función sleep() en Linux/Mac (usar <windows.h> y Sleep() en Windows)
+#include <windows.h> // Para la función sleep() en Linux/Mac (usar <windows.h> y Sleep() en Windows)
 
 #define FILAS 10
 #define COLS 10
@@ -41,7 +41,25 @@ void imprimirMundo() {
 
 int contarVecinos(int f, int c) {
     int vecinos = 0;
-    
+
+    //Recorreremos desde la fila anterior (f-1) hasta la siguiente (f+1)
+    for (int i = f-1; i <= f+1; i++){
+        //Se hace lo mismo que con las filas pero ahora con las columnas desde (c-1) a (c+1)
+        for (int j = c-1; j <= c+1; j++){
+            //Verificamos los limites para que no nos salgamos del arreglo
+            if (i >= 0 && i < FILAS && j >= 0 && j < COLS){
+                //Descartamos la propia celda central (f,c) no es vecina de si misma
+                if (i == f && j == c) {
+                    continue; // Saltamos la celda central
+                }
+
+                //Si la celda vecina tiene un 1, sumamos al contador 
+                if (mundo[i][j] == 1){
+                    vecinos++;
+                }
+            }
+        }
+    }     
     // TODO: Recorrer las 8 celdas alrededor de mundo[f][c]
     // CUIDADO: Debes verificar que los índices no se salgan del arreglo (0 a FILAS-1)
     // Ejemplo de lógica:
@@ -54,7 +72,6 @@ int contarVecinos(int f, int c) {
     
     return vecinos;
 }
-
 void siguienteGeneracion() {
     for (int i = 0; i < FILAS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -75,6 +92,11 @@ void siguienteGeneracion() {
             } else {
                 // REGLA 4: Reproducción (exactamente 3 vecinos) -> Nace
                 
+                if (vecinos == 3){
+                    siguiente_mundo[i][j] = 1; //La celda nace
+                } else {
+                    siguiente_mundo[i][j] = 0; //Se mantiene muerta
+                }
                 // TODO: Completar la lógica para células muertas
             }
         }
@@ -83,6 +105,7 @@ void siguienteGeneracion() {
     // Copiar el estado siguiente al actual
     for (int i = 0; i < FILAS; i++) {
         for (int j = 0; j < COLS; j++) {
+
             mundo[i][j] = siguiente_mundo[i][j];
         }
     }
@@ -95,10 +118,13 @@ int main() {
     for(int k=0; k<iteraciones; k++) {
         imprimirMundo();
         siguienteGeneracion();
-        // sleep(1); // Pausa para ver la animación
+        Sleep(1000); // Pausa para ver la animación (en milisegundos)
     }
 
     return 0;
 }
 
 // PREGUNTA: ¿Por qué es obligatoria la matriz siguiente_mundo? ¿Qué pasaría si actualizamos directamente sobre mundo?
+// Respuesta: Es obligatoria la matriz siguiente_mundo porque todos los cambios deben ocurrir de manera simultanea, si actualizamos directamente 
+//sobre mundo estariamos actualizando y recorriendo al mismo tiempo, lo que causaria que las reglas se apliquen de manera incorrecta, ya que al modificar una celda en mundo, 
+//afectaria el conteo de vecinos para las celdas siguientes, generando un resultado incorrecto.
