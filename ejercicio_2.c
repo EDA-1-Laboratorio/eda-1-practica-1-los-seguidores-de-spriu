@@ -79,4 +79,5 @@ int main() {
 }
 
 // PREGUNTA: ¿Qué sucede si se omite la verificación if (top <= bottom) -linea 21- dentro del bucle?
-// RESPUESTA: 
+// RESPUESTA: Se escribirían números nuevos en donde ya había unos, es decir, como el programa no sabría cuando parar si no se le pone el tope cuando llega al centro de la matriz, cuando se crucen “top” y “bottom” el programa pondría números encima de los que ya estaban bien. 
+
