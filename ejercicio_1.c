@@ -55,23 +55,23 @@ void crearMensaje() {
        usando los caracteres de 'texto'.
        Tip: Necesitas recorrer renglones y luego columnas. */
 
-    size_t size = sizeof(texto)/sizeof(texto[0]);
+    size_t size = sizeof(texto)/sizeof(texto[0]);   // Variable que contiene el tamaño de texto[]
 
     printf("\n\n");
     // Bucle matriz
 
-    for (i = 0; i < ren; i++){
+    for (i = 0; i < ren; i++){                      // Se coloca en el renglon i
 
-        for (j = 0; j < col; j++){
+        for (j = 0; j < col; j++){                  // Avanza hacia la derecha en las columnas
 
-           escitala[i][j] = texto[k];
+           escitala[i][j] = texto[k];               // Coloca el carácter contenido en texto[k] en la posicion [i][j] de la matriz.
            k++;
 
         }
 
     }
 
-    /*Bucle print
+    /*Bucle print //Descomentar esta parte para imprimir la matriz auxiliar.
 
     for (i = 0; i < ren; i++){
 
@@ -95,13 +95,13 @@ void crearMensaje() {
     
     /* TODO: Escribe aquí los bucles para imprimir el mensaje cifrado.
        Tip: Ahora el bucle externo debe controlar las columnas y el interno los renglones. */
-    k = 0;
-    char texto2[size];
-    for (i = 0; i < col; i++){
+    k = 0;                                          // Reiniciamos k
+    char texto2[size];                              // Creamos un nuevo arreglo con el tamaño texto[] para guardar el texto cifrado. 
+    for (i = 0; i < col; i++){                      // Se coloca en la columna j
 
-        for (j = 0; j < ren; j++){
+        for (j = 0; j < ren; j++){                  // Baja por los renglones
 
-           texto2[k] = escitala[j][i];
+           texto2[k] = escitala[j][i];              // Cambiamos el valor en la posicion [j][i], i controla las columnas y j los renglones, por eso no usamos [i][j].
            k++;
 
         }
@@ -138,18 +138,18 @@ void descifrarMensaje() {
 
     // Bucle matriz.
 
-    for (i = 0; i < col; i++){
+    for (i = 0; i < col; i++){                      // Nuevamente necesitamos leer la matriz hacia abajo (en lugar de hacia la derecha), asi que i controlara las columnas y j los renglones.
 
         for (j = 0; j < ren; j++){
 
-           escitala[j][i] = texto[k];
+           escitala[j][i] = texto[k];               //  Volvemos a acceder a la posicion [j][i] (en lugar de [i][j]), para que los valores de la matriz pasen de manera correcta al arreglo texto[]
            k++;
 
         }
 
     }
 
-    /*Bucle print
+    /*Bucle print //Descomentar esta parte para imprimir la matriz auxiliar.
 
     for (i = 0; i < ren; i++){
 
@@ -171,14 +171,14 @@ void descifrarMensaje() {
 
     /* TODO: Escribe aquí los bucles para imprimir el mensaje original. */
 
-    size_t size = sizeof(texto)/sizeof(texto[0]);
-    k = 0;
-    char texto2[size];
-    for (i = 0; i < ren; i++){
+    size_t size = sizeof(texto)/sizeof(texto[0]);   // Variable que contiene el tamaño de texto[]
+    k = 0;                                          // Reiniciamos k
+    char texto2[size];                              // Creamos un nuevo arreglo con el tamaño de texto[] para guardar el texto descifrado.
+    for (i = 0; i < ren; i++){                      // Se coloca en el renglon i
 
-        for (j = 0; j < col; j++){
+        for (j = 0; j < col; j++){                  // Lee las columnas (lee hacia la derecha)
 
-           texto2[k] = escitala[i][j];
+           texto2[k] = escitala[i][j];              // Cambiamos el valor de texto2[k] por el almacenado en la posicion [i][j]
            k++;
 
         }
