@@ -96,7 +96,7 @@ void crearMensaje() {
     /* TODO: Escribe aquí los bucles para imprimir el mensaje cifrado.
        Tip: Ahora el bucle externo debe controlar las columnas y el interno los renglones. */
     k = 0;                                          // Reiniciamos k
-    char texto2[size];                              // Creamos un nuevo arreglo con el tamaño texto[] para guardar el texto cifrado. 
+    char texto2[size+1];                              // Creamos un nuevo arreglo con el tamaño texto[] para guardar el texto cifrado. 
     for (i = 0; i < col; i++){                      // Se coloca en la columna j
 
         for (j = 0; j < ren; j++){                  // Baja por los renglones
@@ -107,7 +107,7 @@ void crearMensaje() {
         }
 
     }
-
+    texto2[size] = '\0';
     printf("%s", texto2);
     printf("\n");
 
@@ -184,7 +184,7 @@ void descifrarMensaje() {
         }
 
     }
-
+    texto2[size] = '\0';
     printf("%s", texto2);
     printf("\n");
 
